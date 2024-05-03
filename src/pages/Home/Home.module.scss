@@ -1,0 +1,107 @@
+.Hello {
+  height: 400px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+
+  div {
+    h2 {
+      text-align: center;
+      font-size: 40px;
+      margin: 20px 0;
+    }
+    p {
+      font-size: 24px;
+      width: 800px;
+      margin: o auto;
+      text-align: center;
+      letter-spacing: 1.2;
+    }
+
+    button {
+      text-align: center;
+      margin: 30px auto 0;
+      padding: 12px 30px;
+      display: block;
+
+      border-radius: 3px;
+      background-color: white;
+      border: 1px solid black;
+    }
+  }
+}
+.Now {
+  width: 100%;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgb(5, 60, 67);
+
+  aside {
+    height: 85%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    .line {
+      width: 180px;
+      height: 2px;
+      background-color: white;
+    }
+    div {
+      p {
+        font-size: 30px;
+        color: white;
+        text-align: center;
+        width: 915px;
+      }
+    }
+  }
+}
+
+.toursFor {
+  display: flex;
+  flex-direction: column;
+
+  h1 {
+    text-align: center;
+    font-size: 40px;
+    font-weight: 400;
+    margin: 40px 0 0 0;
+    padding: 40px 0 40px 0;
+  }
+  .toursForYou {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 50px 0;
+    height: 40vh;
+    a {
+      width: 350px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      img {
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+      }
+
+      h5 {
+        font-size: 23px;
+        margin: 10px 0;
+        text-align: center;
+        font-weight: 400;
+      }
+      p {
+        text-align: center;
+        font-size: 14px;
+        width: 220px;
+      }
+    }
+  }
+}

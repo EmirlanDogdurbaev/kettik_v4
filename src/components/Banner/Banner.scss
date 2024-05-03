@@ -1,0 +1,131 @@
+@import url(https://fonts.googleapis.com/css?family=Oswald:300,400,700);
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic);
+
+#parallax-world-of-ugg .parallax-one {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  background-image: url("https://thumb.tildacdn.com/tild6634-6562-4563-b663-323730386339/-/format/webp/IMG_6018.JPG");
+  background-attachment: fixed;
+  background-size: cover;
+  -moz-background-size: cover;
+  -webkit-background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top center;
+}
+.up {
+  width: 100%;
+  height: 100vh;
+  background: white;
+}
+// #parallax-world-of-ugg .block {
+//   height: 100vh;
+//   background: white;
+//   padding: 60px;
+//   width: 820px;
+//   margin: 0 auto;
+//   text-align: justify;
+// }
+
+/* Extras */
+/**************************/
+#parallax-world-of-ugg .line-break {
+  border-bottom: 1px solid black;
+  width: 150px;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 959px) and (min-width: 768px) {
+  #parallax-world-of-ugg .block {
+    padding: 40px;
+    width: 620px;
+  }
+}
+@media screen and (max-width: 767px) {
+  #parallax-world-of-ugg .block {
+    padding: 30px;
+    width: 420px;
+  }
+  #parallax-world-of-ugg h2 {
+    font-size: 30px;
+  }
+  #parallax-world-of-ugg .block {
+    padding: 30px;
+  }
+  #parallax-world-of-ugg .parallax-one {
+    padding-top: 100px;
+    padding-bottom: 100px;
+  }
+}
+@media screen and (max-width: 479px) {
+  #parallax-world-of-ugg .block {
+    padding: 30px 15px;
+    width: 290px;
+  }
+}
+
+#parallax-world-of-ugg h2 {
+  font-size: 70px;
+  letter-spacing: 10px;
+  text-align: center;
+  color: white;
+  font-weight: 400;
+  text-transform: uppercase;
+  z-index: 10;
+  opacity: 0.9;
+}
+
+.sc {
+  color: #3b8595;
+}
+.ny {
+  color: #3d3c3a;
+}
+.atw {
+  color: #c48660;
+}
+
+// axaxaxax
+
+.title {
+  font-size: 18px;
+  margin: 20px 0;
+  font-weight: 400;
+}
+
+.count {
+  display: flex;
+  flex-direction: column;
+
+  margin: 30px 0;
+
+  h4 {
+    font-weight: 300;
+  }
+
+  span {
+    padding: 10px 0;
+  }
+}
+
+.book_btn {
+  padding: 15px 25px;
+  margin: 40px auto 0;
+  border: 1px solid white;
+  background-color: #008736;
+  border-radius: 30px;
+  color: white;
+}
+
+.tours_des {
+  font-size: 21px;
+  text-align: center;
+  width: 700px;
+  margin: 0 auto;
+  padding: 50px 20px;
+  font-weight: 300;
+}

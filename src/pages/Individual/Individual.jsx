@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import Header from "../../components/Header/Header";
 import axios from "axios";
 import cl from "./Individual.module.scss";
@@ -22,7 +22,7 @@ const Individual = () => {
         event.preventDefault();
 
         axios
-            .post("http://localhost:8081/indi/individual", formData)
+            .post("http://localhost:8080/individual", formData)
             .then((response) => {
                 console.log(response.data);
                 setFormData({

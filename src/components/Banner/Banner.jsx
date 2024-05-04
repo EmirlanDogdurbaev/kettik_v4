@@ -10,7 +10,7 @@ const Layout = () => {
         <div id="parallax-world-of-ugg">
             {location.pathname === "/book" ? (
                 <>
-                   <BookForm/>
+                    <BookForm/>
                 </>
             ) : location.pathname === "/tours" ? (
                 <>
@@ -18,7 +18,7 @@ const Layout = () => {
                         <div
                             className="parallax-one"
                             style={{
-                                backgroundImage: `url("https://thumb.tildacdn.com/tild6634-6562-4563-b663-323730386339/-/format/webp/IMG_6018.JPG") !important`,
+                                backgroundImage: `url("./bg4.JPEG") !important`,
                             }}
                         >
                             <h2>Tours</h2>

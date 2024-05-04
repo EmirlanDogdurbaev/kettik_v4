@@ -1,18 +1,22 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import axios from 'axios';
-
-
+import {BASE_API} from "../api/base_api.js";
 export const api = 'http://localhost:8000';
 
 export const signup = createAsyncThunk('auth/register', async ({username, password, email}) => {
+   // Получаем функцию navigate
     // eslint-disable-next-line no-useless-catch
     try {
-        const response = await axios.post(`${api}/register`, {username, password, email});
-        const token = response.data.access_token;
+        const response = await axios.post(`${BASE_API}/auth/register`, {username, password, email});
+
+        const token = response.data.token;
         localStorage.setItem('access_token', token);
         localStorage.setItem('username', username);
         localStorage.setItem('email', email);
+
+
         return {email, token};
+
     } catch (error) {
         throw error;
     }
@@ -22,8 +26,10 @@ export const signup = createAsyncThunk('auth/register', async ({username, passwo
 export const login = createAsyncThunk('auth/login', async ({password, email}) => {
     // eslint-disable-next-line no-useless-catch
     try {
-        const response = await axios.post(`${api}/login`, {password, email});
-        const token = response.data.access_token;
+        const response = await axios.post(`${BASE_API}/auth/login`, {password, email});
+
+        console.log(response.data);
+        const token = response.data;
         localStorage.setItem('access_token', token);
         localStorage.setItem('email', email);
         return {email, token};
@@ -36,7 +42,7 @@ export const refreshToken = createAsyncThunk('auth/refreshToken', async () => {
     // eslint-disable-next-line no-useless-catch
     try {
         const refreshToken = localStorage.getItem('refresh_token');
-        const response = await axios.post(`${api}/refresh_token`, {refreshToken});
+        const response = await axios.post(`${BASE_API}/refresh_token`, {refreshToken});
         const newToken = response.data.access_token;
         localStorage.setItem('refresh_token', newToken);
         return newToken;

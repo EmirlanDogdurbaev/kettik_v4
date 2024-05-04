@@ -6,12 +6,12 @@ const Header = () => {
 
     const headerData = {
         "/": {
-            backgroundImage: "url('https://avatars.mds.yandex.net/get-vertis-journal/4220003/mick-truyts-4dZnL_Da9gk-unsplash.jpg_1704306776842/orig')",
+            backgroundImage: "url('./bg1.webp')",
             title: "KYRGYZ REPUBLIC",
             subtitle: "Travel Easily and comfortably",
         },
         "/about": {
-            backgroundImage: "url('https://risk.ru/u/img/278/277147.jpeg')",
+            backgroundImage: "url('./bg2.JPG')",
             title: "Kettik",
             subtitle:
                 "No picture captures the beauty of the mountains as they are seen by mountain climbers. But the majesty does",

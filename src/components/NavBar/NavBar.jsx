@@ -5,7 +5,7 @@ const NavBar = () => {
     const location = useLocation();
     const pathArray = location.pathname.split("/");
     const id = pathArray.length >= 3 ? pathArray[2] : null; // Получаем id из пути маршрута
-    const navClass = id ? cl.Nav : cl.NavDetail;
+    const navClass = id ?cl.NavDetail:  cl.Nav;
 
     return (
         <nav className={navClass}>

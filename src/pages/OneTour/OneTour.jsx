@@ -10,7 +10,7 @@ const OneTour = () => {
     const [data, setData] = useState([]);
     useEffect(() => {
         axios
-            .get(`${BASE_API}/tours/${id}`)
+            .get(`${BASE_API}/tour/${id}`)
             .then((response) => {
                 setData(response.data);
             })

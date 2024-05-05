@@ -7,7 +7,7 @@ const TourCards = () => {
     const [tours, setTours] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:8080/tours")
+        axios.get("http://localhost:8080/tour/all")
             .then(response => {
                 setTours(response.data);
             })

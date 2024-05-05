@@ -19,7 +19,7 @@ const Slider = () => {
 
     useEffect(() => {
         axios
-            .get(`${BASE_API}/tours`)
+            .get(`${BASE_API}/tour/all`)
             .then((response) => {
                 setTours(response.data);
             })

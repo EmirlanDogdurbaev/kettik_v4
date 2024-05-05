@@ -9,11 +9,11 @@ export const signup = createAsyncThunk('auth/register', async ({username, passwo
     try {
         const response = await axios.post(`${BASE_API}/auth/register`, {username, password, email});
 
-        const token = response.data.token;
+        console.log(response.data);
+        const token = response.data;
         localStorage.setItem('access_token', token);
         localStorage.setItem('username', username);
         localStorage.setItem('email', email);
-
 
         return {email, token};
 

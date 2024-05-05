@@ -20,9 +20,8 @@ const BookForm = () => {
         numberOfPersons: 1
     });
 
-    console.log(formValues)
     useEffect(e => {
-        axios.get(`${BASE_API}/tours`)
+        axios.get(`${BASE_API}/tour/all`)
             .then((response) => {
                 const fetchedOptions = response.data.map(option => ({
                     value: option.title,

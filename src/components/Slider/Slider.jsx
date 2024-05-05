@@ -7,7 +7,6 @@ import 'swiper/css/pagination';
 
 import './stylle.css';
 
-// import required modules
 import { EffectCoverflow, Pagination } from 'swiper/modules';
 
 import classes from "./Slider.module.scss";

@@ -1,70 +1,72 @@
-import axios from "axios";
-import  {useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import Select from "react-select";
-import "./BookForm.scss";
+import axios from "axios";
 import {customStyles} from "../../UI/InputCustomStyle/InputCustomStyle";
-// import baseApi from "../../store/api/base_api.js";
+import {useDispatch} from "react-redux";
+import {submitForm} from "../../store/requests/bookingRequest.js";
+import {BASE_API} from "../../store/api/base_api.js";
+import "./BookForm.scss"
+
 
 const BookForm = () => {
-    const [numberOfPersons, setNumberOfPersons] = useState(1);
+    const dispatch = useDispatch();
+    const [options, setOptions] = useState([]);
     const [formValues, setFormValues] = useState({
         name: "",
         email: "",
         phone: "",
         tourName: null,
-        data: ""
+        data: "",
+        numberOfPersons: 1
     });
 
-    const options = [
-        {value: "Ala-Archa", label: "Ala-Archa"},
-        {value: "Alamedin", label: "Alamedin"},
-        {value: "Kol-Tor", label: "Kol-Tor"},
-    ];
+    console.log(formValues)
+    useEffect(e => {
+        axios.get(`${BASE_API}/tours`)
+            .then((response) => {
+                const fetchedOptions = response.data.map(option => ({
+                    value: option.title,
+                    label: option.title
+                }));
+
+                setOptions(fetchedOptions);
+            })
+            .catch((error) => {
+                console.error("Error fetching options:", error);
+                reportError(e);
+            });
+    }, []);
 
 
-    const handleDecrement = () => {
-        if (numberOfPersons > 1) {
-            setNumberOfPersons((prevPersons) => prevPersons - 1);
+    const handleSubmit = useCallback((event) => {
+        event.preventDefault();
+        dispatch(submitForm(formValues));
+        setFormValues({
+            name: "",
+            email: "",
+            phone: "",
+            tourName: null,
+            data: "",
+            numberOfPersons: 1
+        });
+    }, [dispatch, formValues]);
+
+    const handleDecrement = useCallback(() => {
+        if (formValues.numberOfPersons > 1) {
+            setFormValues((prevValues) => ({
+                ...prevValues,
+                numberOfPersons: prevValues.numberOfPersons - 1
+            }));
         }
-    };
+    }, [formValues]);
 
-    const handleIncrement = () => {
-        setNumberOfPersons((prevPersons) => prevPersons + 1);
-    };
+    const handleIncrement = useCallback(() => {
+        setFormValues((prevValues) => ({
+            ...prevValues,
+            numberOfPersons: prevValues.numberOfPersons + 1
+        }));
+    }, []);
 
-    // const handleSubmit = (event) => {
-    //     event.preventDefault();
-    //     const form = event.target;
-    //     const name = form.name.value;
-    //     const email = form.email.value;
-    //     const phone = form.phone.value;
-    //     const tourName = form.tourName.value;
-    //     const data = form.data.value;
-    //     console.log(tourName, "axaax");
-    //     const formData = {
-    //         name,
-    //         email,
-    //         phone,
-    //         numberOfPersons,
-    //         data,
-    //         tourName,
-    //     };
-    //     axios
-    //         .post(`${baseApi}/bookings/book`, formData)
-    //         .then((response) => {
-    //             console.log(response.data, "axaxa");
-    //             setFormValues({
-    //                 name: "",
-    //                 email: "",
-    //                 phone: "",
-    //                 tourName: null,
-    //                 data: ""
-    //             });
-    //         })
-    //         .catch((error) => {
-    //             console.error(error);
-    //         });
-    // };
 
     const handleFormChange = (event) => {
         const {name, value} = event.target;
@@ -75,14 +77,16 @@ const BookForm = () => {
     };
 
     const handleTourSelect = (selectedOption) => {
-        setFormValues((prevValues) => ({
-            ...prevValues,
-            tourName: selectedOption,
-        }));
+        setFormValues((prevValues) => {
+            return {
+                ...prevValues,
+                tourName: selectedOption.title,
+            };
+        });
     };
 
     return (
-        <form className="book" onSubmit={""}>
+        <form className="book" onSubmit={handleSubmit}>
             <label htmlFor="name">
                 <h5 className="title">Name and surname of the contact person</h5>
                 <input
@@ -122,7 +126,7 @@ const BookForm = () => {
           <button type="button" onClick={handleDecrement}>
             -
           </button>
-          <h4>{numberOfPersons}</h4>
+          <h4>{formValues.numberOfPersons}</h4>
           <button type="button" onClick={handleIncrement}>
             +
           </button>

@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-// import Galery from "../../components/Galery/Galery";
 import Header from "../../components/Header/Header";
 import Slider from "../../components/Slider/Slider";
 import cl from "./Home.module.scss";
+import Gallery from "../../components/Galery/Gallery.jsx";
 
 const Home = () => {
     return (
@@ -79,9 +79,9 @@ const Home = () => {
             <section>
                 <Slider />
             </section>
-            {/*<section>*/}
-            {/*    <Galery />*/}
-            {/*</section>*/}
+            <section>
+                <Gallery />
+            </section>
         </>
     );
 };

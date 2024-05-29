@@ -1,20 +1,19 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import axios from 'axios';
 import {BASE_API} from "../api/base_api.js";
+
 export const api = 'http://localhost:8000';
 
-export const signup = createAsyncThunk('auth/register', async ({username, password, email}) => {
-   // Получаем функцию navigate
+export const signup = createAsyncThunk('/register', async ({firstname, password, email, lastname, phone}) => {
     // eslint-disable-next-line no-useless-catch
     try {
-        const response = await axios.post(`${BASE_API}/auth/register`, {username, password, email});
+        const response = await axios.post(`${BASE_API}/register`, {firstname, password, email, lastname, phone});
 
-        console.log(response.data);
-        const token = response.data;
+        console.log(response.data.token);
+        const token = response.data.token;
         localStorage.setItem('access_token', token);
-        localStorage.setItem('username', username);
+        localStorage.setItem('username', firstname);
         localStorage.setItem('email', email);
-
         return {email, token};
 
     } catch (error) {
@@ -23,11 +22,10 @@ export const signup = createAsyncThunk('auth/register', async ({username, passwo
 });
 
 
-export const login = createAsyncThunk('auth/login', async ({password, email}) => {
+export const login = createAsyncThunk('/login', async ({password, email}) => {
     // eslint-disable-next-line no-useless-catch
     try {
-        const response = await axios.post(`${BASE_API}/auth/login`, {password, email});
-
+        const response = await axios.post(`${BASE_API}/login`, {password, email});
         console.log(response.data);
         const token = response.data;
         localStorage.setItem('access_token', token);

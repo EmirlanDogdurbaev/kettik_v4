@@ -18,6 +18,9 @@ const OneTour = () => {
                 console.error("Ошибка при получении данных:", error);
             });
     }, [id]);
+
+
+    console.log(data)
     return (
         <div className={cl.OneTour}>
             <div style={{display: "flex", gap: "30px"}} className={cl.inner_cont}>

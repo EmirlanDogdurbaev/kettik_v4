@@ -1,162 +1,126 @@
-import {useCallback, useEffect, useState} from "react";
-import Select from "react-select";
-import axios from "axios";
-import {customStyles} from "../../UI/InputCustomStyle/InputCustomStyle";
-import {useDispatch} from "react-redux";
-import {submitForm} from "../../store/requests/bookingRequest.js";
+import {useEffect, useState} from 'react';
+import {useDispatch} from 'react-redux';
+import axios from 'axios';
 import {BASE_API} from "../../store/api/base_api.js";
+import {bookingPost} from "../../store/Slices/bookingSlice.js";
+import Select from 'react-select';
+import {customStyles} from "../../UI/InputCustomStyle/InputCustomStyle.js";
 import "./BookForm.scss"
 
-
-const BookForm = () => {
+const BookingForm = () => {
     const dispatch = useDispatch();
-    const [options, setOptions] = useState([]);
-    const [formValues, setFormValues] = useState({
-        name: "",
-        email: "",
-        phone: "",
-        tourName: null,
-        data: "",
-        numberOfPersons: 1
+    const [formData, setFormData] = useState({
+        tour_id: '',
+        date: '',
+        phoneNumber: '',
+        people: 0
     });
+    const [tourOptions, setTourOptions] = useState([]);
 
-    useEffect(e => {
+    useEffect(() => {
         axios.get(`${BASE_API}/tour/all`)
             .then((response) => {
-                const fetchedOptions = response.data.map(option => ({
-                    value: option.title,
-                    label: option.title
-                }));
-
-                setOptions(fetchedOptions);
+                setTourOptions(response.data);
             })
             .catch((error) => {
                 console.error("Error fetching options:", error);
-                reportError(e);
             });
     }, []);
 
-
-    const handleSubmit = useCallback((event) => {
-        event.preventDefault();
-        dispatch(submitForm(formValues));
-        setFormValues({
-            name: "",
-            email: "",
-            phone: "",
-            tourName: null,
-            data: "",
-            numberOfPersons: 1
-        });
-    }, [dispatch, formValues]);
-
-    const handleDecrement = useCallback(() => {
-        if (formValues.numberOfPersons > 1) {
-            setFormValues((prevValues) => ({
-                ...prevValues,
-                numberOfPersons: prevValues.numberOfPersons - 1
-            }));
-        }
-    }, [formValues]);
-
-    const handleIncrement = useCallback(() => {
-        setFormValues((prevValues) => ({
-            ...prevValues,
-            numberOfPersons: prevValues.numberOfPersons + 1
-        }));
-    }, []);
-
-
-    const handleFormChange = (event) => {
-        const {name, value} = event.target;
-        setFormValues((prevValues) => ({
-            ...prevValues,
-            [name]: value,
+    const handleChange = (selectedOption) => {
+        setFormData(prevState => ({
+            ...prevState,
+            tour_id: selectedOption ? selectedOption.value : ''
         }));
     };
 
-    const handleTourSelect = (selectedOption) => {
-        setFormValues((prevValues) => {
-            return {
-                ...prevValues,
-                tourName: selectedOption.title,
-            };
+    const handleInputChange = (e) => {
+        const {name, value} = e.target;
+        setFormData(prevState => ({
+            ...prevState,
+            [name]: name === 'people' ? parseInt(value, 10) || 0 : value
+        }));
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        dispatch(bookingPost(formData));
+
+        setFormData({
+            tour_id: '',
+            date: '',
+            phoneNumber: '',
+            people: 0
         });
     };
+
+    const opt = tourOptions.map(option => ({value: option.id, label: option.title}));
+
+    // console.log(localStorage.getItem('user').role !== "admin");
+
+    const firstNameToken = localStorage.getItem("username");
+    if (firstNameToken && firstNameToken.role == "admin") {
+        console.log("User is an admin");
+    } else {
+        console.log("User is not an admin");
+    }
+
 
     return (
-        <form className="book" onSubmit={handleSubmit}>
-            <label htmlFor="name">
-                <h5 className="title">Name and surname of the contact person</h5>
-                <input
-                    id="name"
-                    type="text"
-                    placeholder="Ваше имя"
-                    name="name"
-                    value={formValues.name}
-                    onChange={handleFormChange}
-                />
-            </label>
-            <label htmlFor="email">
-                <h5 className="title">Email</h5>
-                <input
-                    id="email"
-                    type="email"
-                    placeholder="example@gmail.com"
-                    name="email"
-                    value={formValues.email}
-                    onChange={handleFormChange}
-                />
-            </label>
-            <label htmlFor="phone">
-                <h5 className="title">Phone</h5>
-                <input
-                    id="phone"
-                    type="text"
-                    placeholder="+996500023120"
-                    name="phone"
-                    value={formValues.phone}
-                    onChange={handleFormChange}
-                />
-            </label>
-            <div className="count">
-                <h4 className="title">Number of persons</h4>
-                <span>
-          <button type="button" onClick={handleDecrement}>
-            -
-          </button>
-          <h4>{formValues.numberOfPersons}</h4>
-          <button type="button" onClick={handleIncrement}>
-            +
-          </button>
-        </span>
-            </div>
-            <aside>
-                <h4 className="title">Select a tour</h4>
-                <Select
-                    options={options}
-                    styles={customStyles}
-                    name="tourName"
-                    value={formValues.tourName}
-                    onChange={handleTourSelect}
-                />
-            </aside>
-            <label htmlFor="data">
-                <h5 className="title">Дата поездки</h5>
-                <input
-                    id="data"
-                    type="date"
-                    name="data"
-                    placeholder="+996500023120"
-                    value={formValues.data}
-                    onChange={handleFormChange}
-                />
-            </label>
-            <button className="book_btn" type="submit">
-                Book a room
-            </button>
-        </form>
+        <>
+            <form onSubmit={handleSubmit} className="book">
+                <label htmlFor="date">
+                    <h5 className="title">Name and surname of the contact person</h5>
+                    <input
+                        id="date"
+                        type="date"
+                        placeholder="Your name"
+                        name="date"
+                        value={formData.date}
+                        onChange={handleInputChange}
+                    />
+                </label>
+
+                <label htmlFor="phoneNumber">
+                    <h5 className="title">Phone</h5>
+                    <input
+                        id="phoneNumber"
+                        type="text"
+                        placeholder="+996500023120"
+                        name="phoneNumber"
+                        value={formData.phoneNumber}
+                        onChange={handleInputChange}
+                    />
+                </label>
+
+                <div>
+                    <label htmlFor="people">Number of People:</label>
+                    <input
+                        type="number"
+                        id="people"
+                        name="people"
+                        value={formData.people}
+                        onChange={handleInputChange}
+                    />
+                </div>
+
+                <div>
+                    <label htmlFor="tour_id">Tour:</label>
+                    <aside>
+                        <h4 className="title">Select a tour</h4>
+                        <Select
+                            options={opt}
+                            styles={customStyles}
+                            name="tourName"
+                            value={opt.find(option => option.value === formData.tour_id) || null}
+                            onChange={handleChange}
+                        />
+                    </aside>
+                </div>
+                <button type="submit">Submit</button>
+            </form>
+        </>
     );
 };
 
-export default BookForm;
+export default BookingForm;

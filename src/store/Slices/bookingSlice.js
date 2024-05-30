@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from "axios";
 import { BASE_API } from "../api/base_api.js";
 
-const getAuthorizationHeader = () => ({
+export const getAuthorizationHeader = () => ({
     Authorization: `Bearer ${localStorage.getItem("access_token")}`
 });
 
@@ -18,12 +18,9 @@ export const bookingPost = createAsyncThunk(
             };
 
             console.log(data);
-
-            // Pass the authorization header using 'headers' key
             const response = await axios.post(`${BASE_API}/booking/book`, data, {
-                headers: getAuthorizationHeader() // Use the function to retrieve the header
+                headers: getAuthorizationHeader()
             });
-
             console.log(response);
             if (response.status !== 201) {
                 throw new Error('Can\'t add task. Server error.');

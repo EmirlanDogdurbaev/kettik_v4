@@ -1,0 +1,56 @@
+.profileContainer {
+  width: 100% ;
+  margin: 100px auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.userInfo {
+  margin-bottom: 20px;
+  width:400px !important;
+  padding: 20px;
+  border: 1px solid #e1e4e8;
+  text-align: start;
+}
+
+.userInfo h2 {
+  font-size: 28px;
+  margin-bottom: 5px;
+}
+
+.userInfo h4 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #586069;
+}
+
+.userInfo p {
+  font-size: 16px;
+  margin-bottom: 5px;
+  color: #586069;
+}
+
+.bookingCard {
+  flex-shrink: 1;
+  width: 80%;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #f6f8fa;
+}
+
+.bookingCard h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.bookingCard p {
+  font-size: 16px;
+  margin-bottom: 5px;
+  color: #586069;
+}

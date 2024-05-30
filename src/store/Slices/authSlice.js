@@ -14,6 +14,7 @@ export const signup = createAsyncThunk('/register', async ({firstname, password,
         localStorage.setItem('access_token', token);
         localStorage.setItem('username', firstname);
         localStorage.setItem('email', email);
+        localStorage.setItem('role', response.data.role);
         return {email, token};
 
     } catch (error) {
@@ -30,6 +31,8 @@ export const login = createAsyncThunk('/login', async ({password, email}) => {
         const token = response.data;
         localStorage.setItem('access_token', token);
         localStorage.setItem('email', email);
+        localStorage.setItem('role', response.data.role);
+
         return {email, token};
     } catch (error) {
         throw error;
